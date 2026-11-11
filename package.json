@@ -1,0 +1,12 @@
+{
+  "name": "idea-library",
+  "private": true,
+  "description": "New Day Church Idea Library",
+  "scripts": {
+    "install:all": "npm --prefix server install && npm --prefix client install",
+    "dev:server": "DATA_DIR=./data npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "start": "DATA_DIR=./data npm --prefix server start"
+  }
+}

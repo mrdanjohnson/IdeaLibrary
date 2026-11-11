@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "idea-library",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--disable-warning=ExperimentalWarning", "server/src/index.js"],
+      "port": 3000,
+      "env": { "DATA_DIR": "./data" }
+    }
+  ]
+}

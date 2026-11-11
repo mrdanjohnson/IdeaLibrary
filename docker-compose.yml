@@ -1,0 +1,22 @@
+services:
+  idea-library:
+    build: .
+    image: newday/idea-library:latest
+    container_name: idea-library
+    restart: unless-stopped
+    ports:
+      # LAN port : container port. Change 8088 if it's already taken on the NAS.
+      - "8088:3000"
+    environment:
+      TZ: America/New_York
+      # Comma-separated emails that become admins when they sign up.
+      # (The very first account created is always an admin.)
+      ADMIN_EMAILS: ""
+      # Asana sync (optional). Put ASANA_TOKEN=... in a .env file next to this one,
+      # then connect a project under Dashboard → Asana.
+      ASANA_TOKEN: ${ASANA_TOKEN:-}
+      # How often to check Asana for changes made there (seconds, minimum 15).
+      ASANA_POLL_SECONDS: ${ASANA_POLL_SECONDS:-60}
+    volumes:
+      # Database + downloaded thumbnails. Back this folder up with Hyper Backup.
+      - ./data:/data
