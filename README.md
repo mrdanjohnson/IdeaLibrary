@@ -82,8 +82,11 @@ Everything lives in `./data`: the SQLite database `idea-library.db` and `thumbna
 
 ### Nice to have
 
-- **Friendly address:** in DSM, *Control Panel → Login Portal → Advanced → Reverse Proxy*, map e.g. `http://ideas.newday.lan` → `localhost:8088`, and point your local DNS at the NAS.
-- **HTTPS:** if you add HTTPS through the reverse proxy, set `COOKIE_SECURE: "true"` in `docker-compose.yml`.
+- **Friendly address (ideas.newdaychurch.cc):**
+  1. **DNS:** add an A record `ideas.newdaychurch.cc → 10.10.40.91` on your local DNS server (or in the public DNS for newdaychurch.cc; a private IP there only works inside the building).
+  2. **Reverse proxy:** in DSM, *Control Panel → Login Portal → Advanced → Reverse Proxy → Create*. Source: HTTP, hostname `ideas.newdaychurch.cc`, port 80. Destination: HTTP, `localhost`, port 8088.
+  3. Open `http://ideas.newdaychurch.cc`, then *Dashboard → Asana → Sync now* so Asana task links use the new address.
+- **HTTPS:** add a certificate for the name under *Control Panel → Security → Certificate*, change the reverse proxy source to HTTPS port 443, and set `COOKIE_SECURE: "true"` in `docker-compose.yml`. Only turn that on once HTTPS works, or nobody can stay signed in.
 
 ## Local development
 

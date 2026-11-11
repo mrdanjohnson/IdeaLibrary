@@ -14,7 +14,9 @@ const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 const CLIENT_DIR = process.env.CLIENT_DIR || path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../client/dist');
 
-app.set('trust proxy', 'loopback');
+// Requests from the NAS's own reverse proxy (e.g. ideas.newdaychurch.cc → :8088) arrive from a private
+// Docker address, so trust those to report the visitor's real IP (used for login rate limiting).
+app.set('trust proxy', process.env.TRUST_PROXY || 'loopback, uniquelocal');
 app.disable('x-powered-by');
 app.use(express.json({ limit: '200kb' }));
 app.use((_req, res, next) => {
